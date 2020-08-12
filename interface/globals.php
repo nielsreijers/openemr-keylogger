@@ -633,3 +633,5 @@ if ((int) $GLOBALS['user_debug'] > 1) {
     error_reporting(error_reporting() & ~E_WARNING & ~E_NOTICE & ~E_USER_WARNING);
     ini_set('display_errors', 1);
 }
+
+require_once(__DIR__ . "/../keylogger/logger-inc.php");
