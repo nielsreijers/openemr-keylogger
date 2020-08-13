@@ -1,6 +1,9 @@
 # logs
 /logs
 
+# keylogger
+/keylogger/presses.txt
+
 # environment vars
 .env
 
