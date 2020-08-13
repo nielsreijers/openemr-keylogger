@@ -16,11 +16,18 @@ if (!empty($entityBody)) {
     $user = $decoded->user;
     foreach ($decoded->events as $event) {
         $sqlBinds = array($user, $event->time, $event->type);
+        $query = "INSERT INTO aa_keylogger_trace ( user, time, type, data, x, y ) VALUES ( ?, ?, ?, ?, ?, ? )";
         if (property_exists($event, 'data')) {
-            $query = "INSERT INTO aa_keylogger_trace ( user, time, type, data ) VALUES ( ?, ?, ?, ?)";
             array_push($sqlBinds, $event->data);
         } else {
-            $query = "INSERT INTO aa_keylogger_trace ( user, time, type, data ) VALUES ( ?, ?, ?, '')";
+            array_push($sqlBinds, '');
+        }
+        if (property_exists($event, 'x')) {
+            array_push($sqlBinds, $event->x);
+            array_push($sqlBinds, $event->y);
+        } else {
+            array_push($sqlBinds, -1);
+            array_push($sqlBinds, -1);
         }
         sqlInsert($query, $sqlBinds);
     }

