@@ -1,5 +1,6 @@
 <?php
 
+$ignoreAuth = true;
 require_once("../interface/globals.php");
 require_once("../library/sql.inc");
 
