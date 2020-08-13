@@ -14,13 +14,18 @@ if (!empty($entityBody)) {
     $decoded = json_decode($entityBody);
     $user = $decoded->user;
     foreach ($decoded->events as $event) {
+        $sqlBinds = array($user, $event->time, $event->type);
         if (property_exists($event, 'data')) {
-            $query = "INSERT INTO aa_keylogger_trace ( user, time, type, data ) VALUES ( '{$user}', {$event->time}, '{$event->type}', '{$event->data}' )";
+            $query = "INSERT INTO aa_keylogger_trace ( user, time, type, data ) VALUES ( ?, ?, ?, ?)";
+            array_push($sqlBinds, $event->data);
         } else {
-            $query = "INSERT INTO aa_keylogger_trace ( user, time, type, data ) VALUES ( '{$user}', {$event->time}, '{$event->type}', '' )";            
+            $query = "INSERT INTO aa_keylogger_trace ( user, time, type, data ) VALUES ( ?, ?, ?, '')";
         }
-        sqlInsert($query);
+        sqlInsert($query, $sqlBinds);
     }
+    print("Successfully Logged.");
+} else {
+    print("EntiyBody is empty.");
 }
 ?>
 
