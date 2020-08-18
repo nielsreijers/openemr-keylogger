@@ -6,10 +6,10 @@ require_once("../library/sql.inc");
 
 $entityBody = file_get_contents('php://input');
 if (!empty($entityBody)) {
-    // log to file
-    $file = fopen('presses.txt', 'a+');
-    fwrite($file, $entityBody . PHP_EOL);
-    fclose($file);
+    // // log to file
+    // $file = fopen('keypresses.txt', 'a+');
+    // fwrite($file, $entityBody . PHP_EOL);
+    // fclose($file);
 
     // log to sql
     $decoded = json_decode($entityBody);

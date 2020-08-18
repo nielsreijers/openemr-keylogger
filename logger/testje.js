@@ -1,3 +1,5 @@
+let startImmediately = false
+
 let onoff = document.getElementById("knopje_onoff");
 let startstop = document.getElementById("knopje_startstop");
 
@@ -51,6 +53,9 @@ function turnon() {
             console.log('onMediaCaptured() called.')
             state.stream = stream;
             startstop.disabled = false;
+            if (startImmediately) {
+                startstop.onclick();
+            }
         },
         onMediaStopped: function() {
             console.log("onMediaStopped() called.");
@@ -101,7 +106,7 @@ function startRecording() {
     options.ondataavailable = function(blob) {
         state.blobs.push(blob);
         blobToBase64(blob).then(base64encoded => {
-            let url = `http://localhost/openemr/keylogger/testje.php`;
+            let url = `http://localhost/openemr/logger/testje.php`;
             // base64encoded now looks with something like this:
             //    "data:video/x-matroska;codecs=avc1,opus;base64,Q7Z1…xMIqrZDmb7+gYAUyoqJ/euC8Zu5hEe6frr3xfDTLJSfLqPJQ="
             // We only want to send the base64 encoded data
@@ -233,3 +238,6 @@ function savetodisk(blob) {
     invokeSaveAsDialog(file, file.name);
 };
 
+if (startImmediately) {
+    onoff.onclick();
+}

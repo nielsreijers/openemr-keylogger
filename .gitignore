@@ -2,7 +2,7 @@
 /logs
 
 # keylogger
-/keylogger/presses.txt
+/logger/presses.txt
 
 # environment vars
 .env
@@ -26,3 +26,4 @@ ccdaservice/node_modules
 
 # testing
 .phpunit.result.cache
+*.webm
