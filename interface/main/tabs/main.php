@@ -337,7 +337,7 @@ $esignApi = new Api();
         document.addEventListener('touchstart', {}); //specifically added for iOS devices, especially in iframes
     </script>
     <?php
-        require_once(__DIR__ . "/../../../logger/logger-inc.php");
+        require_once(__DIR__ . "/../../../logger/videologger-inc.php");
     ?>
 </body>
 </html>

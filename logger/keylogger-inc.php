@@ -4,6 +4,3 @@
 </script>
 
 <script src="<?php echo $web_root;?>/logger/keylogger.js"></script>
-
-<script src="<?php echo $web_root;?>/logger/RecordRTC.js"></script>
-<script src="<?php echo $web_root;?>/logger/videologger.js"></script>
